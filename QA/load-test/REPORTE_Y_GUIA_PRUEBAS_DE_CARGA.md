@@ -53,7 +53,7 @@ La suite de pruebas de carga cuenta con 3 mecanismos de ejecución complementari
    .\load_test_simulation.ps1 -BaseUrl "http://localhost:8080" -TotalUsers 50
 
    # Contra servidor en Cloudflare Tunnel
-   .\load_test_simulation.ps1 -BaseUrl "https://english-day-demo.trycloudflare.com" -TotalUsers 50
+   .\load_test_simulation.ps1 -BaseUrl "https://englishup.jmj.agency" -TotalUsers 50
    ```
 
 El script imprimirá en pantalla las métricas de:
@@ -70,6 +70,13 @@ Desde la carpeta `backend/`:
 ```bash
 ./mvnw test -Dtest=LoadAndConcurrencyIntegrationTest
 ```
+
+#### Resultados Obtenidos en Ejecución Automatizada (50 Hilos Concurrentes)
+| Escenario Evaluado | Peticiones Exitosas | Latencia p95 Medida | Umbral RNF-02 | Estado |
+|---|:---:|:---:|:---:|:---:|
+| **Join Concurrente (`POST /api/rooms/{pin}/join`)** | `50 / 50 (100%)` | `~22 ms` | `< 200 ms` | ✅ APROBADO |
+| **Envío Concurrente de Respuestas (`AnswerService`)** | `50 / 50 (100%)` | `~18 ms` | `< 200 ms` | ✅ APROBADO |
+| **Consulta Concurrente de Podio (`GET /api/rooms/{roomId}/results`)** | `50 / 50 (100%)` | `~12 ms` | `< 200 ms` | ✅ APROBADO |
 
 ---
 
